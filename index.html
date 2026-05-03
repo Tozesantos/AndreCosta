@@ -4,75 +4,272 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
     <title>André Costa</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #FAEEEA;
-            color: #333;
-            text-align: center;
+        *, *::before, *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EFE7DA;
+            color: #2A1A0E;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 24px;
+        }
+
         .container {
+            position: relative;
+            width: 100%;
             max-width: 400px;
-            margin: 50px auto;
-            background:#F5e2e2;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: fadeUp 0.9s ease both;
         }
-        .profile-img {
-            width: 140px;
-            height: 150px;
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(24px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Profile ── */
+        .profile-wrap {
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .profile-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
             border-radius: 50%;
-            margin-bottom: 20px;
+            border: 1px solid rgba(120, 70, 40, 0.35);
         }
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 10px;
+
+        .profile-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -14px;
+            border-radius: 50%;
+            border: 1px solid rgba(120, 70, 40, 0.12);
         }
-        .bio {
-            font-size: 14px;
-            margin-bottom: 20px;
-            color: #666;
-        }
-        .link {
+
+        .profile-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
             display: block;
+            filter: brightness(0.97) contrast(1.03);
+        }
+
+        .profile-glow { display: none; }
+
+        /* ── Name ── */
+        .name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 46px;
+            font-weight: 300;
+            letter-spacing: 0.18em;
+            color: #2A1A0E;
+            text-transform: uppercase;
+            line-height: 1;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .name-sub {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 13px;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: 0.22em;
+            color: #9A7A65;
+            margin-bottom: 32px;
+            text-align: center;
+        }
+
+        /* ── Ornament ── */
+        .ornament {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 32px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .ornament-line {
+            flex: 1;
+            max-width: 80px;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(120, 70, 40, 0.3));
+        }
+
+        .ornament-line.right {
+            background: linear-gradient(to left, transparent, rgba(120, 70, 40, 0.3));
+        }
+
+        .ornament-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: rgba(120, 70, 40, 0.35);
+        }
+
+        .ornament-diamond {
+            width: 5px;
+            height: 5px;
+            background: rgba(120, 70, 40, 0.45);
+            transform: rotate(45deg);
+        }
+
+        /* ── Links ── */
+        .links {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 40px;
+        }
+
+        .link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
-            background: #FAEEEA;
-            color: #666;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 5px 0;
-            transition: 0.3s;
+            color: #7A4828;
+            padding: 16px 22px;
+            border: 1px solid rgba(120, 70, 40, 0.25);
+            background: rgba(120, 70, 40, 0.04);
+            letter-spacing: 0.13em;
+            font-size: 10.5px;
+            font-weight: 400;
+            text-transform: uppercase;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
         }
+
+        .link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #7A4828;
+            transform: scaleY(0);
+            transition: transform 0.3s ease;
+        }
+
         .link:hover {
-            background: #E1a6ad;
+            border-color: rgba(120, 70, 40, 0.5);
+            color: #2A1A0E;
+            background: rgba(120, 70, 40, 0.08);
         }
-        .social-icons {
-            margin-bottom: 10px;
+
+        .link:hover::before {
+            transform: scaleY(1);
         }
-       
+
+        /* ── Social ── */
+        .social-label {
+            font-size: 9px;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: #C0A898;
+            margin-bottom: 18px;
+            text-align: center;
+        }
+
+        .social-row {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .social-icon {
+            color: #B09080;
+            font-size: 17px;
+            text-decoration: none;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: #7A4828;
+            transform: translateY(-3px);
+        }
+
+        /* ── Footer ── */
+        .footer-line {
+            margin-top: 50px;
+            font-size: 9px;
+            letter-spacing: 0.2em;
+            color: #C8B8A8;
+            text-transform: uppercase;
+        }
     </style>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5001962471589583"
      crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="container">
-        <img src="Andre_1.jpg" alt="Foto de Perfil" class="profile-img">
+
+        <div class="profile-wrap">
+            <div class="profile-glow"></div>
+            <img src="Andre_2_1.PNG" alt="André Costa" class="profile-img">
+        </div>
+
         <div class="name">André Costa</div>
-        <div class="bio">Segue-me em todas as redes, faz esse feitiço dar certo!</div>
-        <a href="https://confess.ngl.link/andrefrcosta2" class="link"><div >Conta-me a tua fofoca (em privado) 👀</div> </a>
-        <a href="https://forms.gle/zGFnAJ6xLSZ8kYPy7" class="link"><div >Vagabas Day - Inscrição</div> </a>
-        <a href="https://www.instagram.com/andrefrcosta?igsh=amNkd25tczN6bjll" class="link"><i class="fab fa-instagram"></i> </a>
-        <a href="https://www.youtube.com/@poddescendodosalto" class="link"><i class="fab fa-youtube"></i> </a>
-        <a href="https://open.spotify.com/show/32y0YBKqarvqdwHKPzzTbv?si=b26dd435ff08461f" class="link"><i class="fab fa-spotify"></i> </a>
-        <a href="https://www.tiktok.com/@andrefrcostaa?_t=ZN-8ul7dWk4LJe&_r=1" class="link"><i class="fab fa-tiktok"></i> </a>
-        <a href="mailto:andrefilipereiscosta@gmail.com" class="link"><i class="fa-solid fa-envelope"></i> </a>
-      
+        <div class="name-sub">todas as redes &nbsp;·&nbsp; um só lugar</div>
+
+        <div class="ornament">
+            <div class="ornament-line"></div>
+            <div class="ornament-dot"></div>
+            <div class="ornament-diamond"></div>
+            <div class="ornament-dot"></div>
+            <div class="ornament-line right"></div>
+        </div>
+
+        <div class="links">
+            <a href="https://confess.ngl.link/andrefrcosta2" class="link">
+                Conta-me a tua fofoca &nbsp;👀
+            </a>
+            <a href="https://forms.gle/zGFnAJ6xLSZ8kYPy7" class="link">
+                Vagabas Day — Inscrição
+            </a>
+        </div>
+
+        <div class="social-label">Segue-me</div>
+
+        <div class="social-row">
+            <a href="https://www.instagram.com/andrefrcosta?igsh=amNkd25tczN6bjll" class="social-icon" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.youtube.com/@poddescendodosalto" class="social-icon" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://open.spotify.com/show/32y0YBKqarvqdwHKPzzTbv?si=b26dd435ff08461f" class="social-icon" title="Spotify">
+                <i class="fab fa-spotify"></i>
+            </a>
+            <a href="https://www.tiktok.com/@andrefrcostaa?_t=ZN-8ul7dWk4LJe&_r=1" class="social-icon" title="TikTok">
+                <i class="fab fa-tiktok"></i>
+            </a>
+            <a href="mailto:andrefilipereiscosta@gmail.com" class="social-icon" title="Email">
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+        </div>
+
+        <div class="footer-line">André Costa © 2025</div>
+
     </div>
 </body>
 </html>
-
